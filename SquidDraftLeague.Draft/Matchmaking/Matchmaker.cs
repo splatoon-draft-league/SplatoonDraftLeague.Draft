@@ -87,7 +87,7 @@ namespace SquidDraftLeague.Draft.Matchmaking
                     return new LobbySelectResponse(true, result: selectedLobby);
                 }
 
-                if (sdlPlayer.Class != selectedLobby.Class)
+                if ((int)sdlPlayer.Class < (int)selectedLobby.Class)
                 {
                     if (selectedLobby.Halved == null || sdlPlayer.PowerLevel > selectedLobby.Halved.PowerLevel)
                         selectedLobby.Halved = sdlPlayer;
