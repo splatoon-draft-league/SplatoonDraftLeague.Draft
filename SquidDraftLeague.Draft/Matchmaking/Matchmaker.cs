@@ -87,12 +87,16 @@ namespace SquidDraftLeague.Draft.Matchmaking
                     return new LobbySelectResponse(true, result: selectedLobby);
                 }
 
-                if ((int)sdlPlayer.Class == (int)selectedLobby.Class - 1)
+                if (sdlPlayer.Class != selectedLobby.Class)
                 {
                     if (selectedLobby.Halved == null || sdlPlayer.PowerLevel > selectedLobby.Halved.PowerLevel)
                         selectedLobby.Halved = sdlPlayer;
 
-                    return new LobbySelectResponse(true, "Please note that in joining this lobby you will gain half the points for winning.", result: selectedLobby);
+                    int divisor = (int)GetClass(selectedLobby.Players.OrderBy(x => x.PowerLevel).First().PowerLevel) -
+                        (int)GetClass(selectedLobby.Players.OrderByDescending(x => x.PowerLevel).First().PowerLevel)
+                        + 1;
+
+                    return new LobbySelectResponse(true, $"Please note that in joining this lobby you will gain 1/{divisor} the points for winning.", result: selectedLobby);
                 }
 
                 return new LobbySelectResponse(false, $"You are not eligible to join lobby #{lobbyNumber} " +
