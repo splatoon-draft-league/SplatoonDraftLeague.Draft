@@ -89,11 +89,11 @@ namespace SquidDraftLeague.Draft.Matchmaking
 
                 if ((int)sdlPlayer.Class < (int)selectedLobby.Class)
                 {
-                    if (selectedLobby.Halved == null || sdlPlayer.PowerLevel > selectedLobby.Halved.PowerLevel)
-                        selectedLobby.Halved = sdlPlayer;
+                    SdlClass highestPlayerClass =
+                        GetClass(selectedLobby.Players.OrderBy(x => x.PowerLevel).First().PowerLevel);
 
                     int divisor = (int)GetClass(selectedLobby.Players.OrderBy(x => x.PowerLevel).First().PowerLevel) -
-                        (int)GetClass(selectedLobby.Players.OrderByDescending(x => x.PowerLevel).First().PowerLevel)
+                        ((int)sdlPlayer.Class > (int)highestPlayerClass ? (int)highestPlayerClass : (int)sdlPlayer.Class)
                         + 1;
 
                     return new LobbySelectResponse(true, $"Please note that in joining this lobby you will gain 1/{divisor} the points for winning.", result: selectedLobby);

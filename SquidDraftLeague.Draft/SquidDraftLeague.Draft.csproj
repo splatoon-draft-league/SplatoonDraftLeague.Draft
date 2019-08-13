@@ -6,8 +6,8 @@
     <Description>A full matchmaking and drafting system designed for Splatoon.</Description>
     <PackageId>SquidDraftLeague.Draft</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Joining down is now allowed unconditionally.</PackageReleaseNotes>
-    <Version>1.0.7163.26666</Version>
+    <PackageReleaseNotes>Fixed there being a missing check for players joining up.</PackageReleaseNotes>
+    <Version>1.0.7163.27857</Version>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Company>SplatoonDraftLeague</Company>
     <Authors>DeltaJordan</Authors>

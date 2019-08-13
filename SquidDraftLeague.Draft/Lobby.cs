@@ -13,8 +13,6 @@ namespace SquidDraftLeague.Draft
 
         public bool InStandby;
 
-        public SdlPlayer Halved { get; set; }
-
         public DateTime StartTime { get; set; }
         public TimeSpan TimeRemaining { get; set; }
         public DateTime LastUpdate { get; private set; }
@@ -30,7 +28,7 @@ namespace SquidDraftLeague.Draft
                 try
                 {
                     return Math.Round(
-                        this.players.Where(e => e.DiscordId != this.Halved?.DiscordId).Select(e => e.PowerLevel).Average(), 2);
+                        this.players.Select(e => e.PowerLevel).Average(), 2);
                 }
                 catch
                 {
@@ -74,7 +72,6 @@ namespace SquidDraftLeague.Draft
         public void Close()
         {
             this.DeltaUpdated = null;
-            this.Halved = null;
             this.players.Clear();
             this.stalePlayers.Clear();
             this.timer.Stop();
@@ -148,11 +145,6 @@ namespace SquidDraftLeague.Draft
             if (this.players.Contains(player))
             {
                 this.players.Remove(player);
-            }
-
-            if (this.Halved == player)
-            {
-                this.Halved = null;
             }
 
             if (this.players.Count == 0)
